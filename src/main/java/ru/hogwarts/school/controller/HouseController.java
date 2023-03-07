@@ -5,9 +5,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.HouseService;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("faculty")
@@ -56,4 +58,13 @@ public class HouseController {
         }
         return ResponseEntity.ok(deletedFaculty);
     }
+
+    @GetMapping("/color")
+    public ResponseEntity<Collection<Faculty>> getFacultiesByDefiniteColor(@PathVariable String definiteColor) {
+        return ResponseEntity.ok(houseService.getAllFaculties()
+                .stream()
+                .filter(faculty -> faculty.getColor().equals(definiteColor))
+                .collect(Collectors.toList()));
+    }
+
 }

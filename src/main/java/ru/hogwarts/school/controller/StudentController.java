@@ -8,6 +8,7 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("student")
@@ -57,6 +58,13 @@ public class StudentController {
         return ResponseEntity.ok(deletedStudent);
     }
 
+    @GetMapping("/age")
+    public ResponseEntity<Collection<Student>> getStudentsByDefiniteAge(@PathVariable int definiteAge) {
+        return ResponseEntity.ok(studentService.getAllStudents()
+                .stream()
+                .filter(student -> student.getAge() == definiteAge)
+                .collect(Collectors.toList()));
+    }
 
 }
 
