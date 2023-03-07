@@ -3,6 +3,7 @@ package ru.hogwarts.school.service;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Faculty;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,16 +20,29 @@ public class HouseService {
     }
 
     public Faculty getFacultyById(Long facultyId) {
-        return faculties.get(facultyId);
+        if (faculties.containsValue(facultyId)) {
+            return faculties.get(facultyId);
+        }
+        return null;
     }
 
-    public Faculty updateFaculty(Long facultyId, Faculty faculty) {
-        faculties.put(facultyId, faculty);
-        return faculty;
+    public Faculty updateFaculty(Faculty faculty) {
+        if (faculties.containsKey(faculty.getId())) {
+            faculties.put(faculty.getId(), faculty);
+            return faculty;
+        }
+        return null;
     }
 
     public Faculty deleteFaculty(Long facultyId) {
-        return faculties.remove(facultyId);
+        if (faculties.containsKey(facultyId)) {
+            return faculties.remove(facultyId);
+        }
+        return null;
+    }
+
+    public Collection<Faculty> getAllFaculties() {
+        return faculties.values();
     }
 
 }
