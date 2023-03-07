@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("faculty")
+@RequestMapping("/faculty")
 public class HouseController {
 
     private final HouseService houseService;
@@ -25,8 +25,8 @@ public class HouseController {
         return ResponseEntity.ok(createdFaculty);
     }
 
-    @GetMapping("{facultyId}")
-    public ResponseEntity<Faculty> getFaculty(@PathVariable Long facultyId) {
+    @GetMapping("/")
+    public ResponseEntity<Faculty> getFaculty(@RequestParam Long facultyId) {
         Faculty faculty = houseService.getFacultyById(facultyId);
         if (faculty == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -39,7 +39,7 @@ public class HouseController {
         return ResponseEntity.ok(houseService.getAllFaculties());
     }
 
-    @PutMapping()
+    @PatchMapping
     public ResponseEntity<Faculty> updateFaculty(@RequestBody Faculty faculty) {
         Faculty updatedFaculty = houseService.updateFaculty(faculty);
         if (updatedFaculty == null) {
@@ -48,8 +48,8 @@ public class HouseController {
         return ResponseEntity.ok(updatedFaculty);
     }
 
-    @DeleteMapping("{facultyId}")
-    public ResponseEntity<Faculty> deleteFaculty(@PathVariable Long facultyId) {
+    @DeleteMapping
+    public ResponseEntity<Faculty> deleteFaculty(@RequestParam Long facultyId) {
         Faculty deletedFaculty = houseService.deleteFaculty(facultyId);
         if (deletedFaculty == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -57,8 +57,8 @@ public class HouseController {
         return ResponseEntity.ok(deletedFaculty);
     }
 
-    @GetMapping("/color/{definiteColor}")
-    public ResponseEntity<Collection<Faculty>> getFacultiesByDefiniteColor(@PathVariable String definiteColor) {
+    @GetMapping("/color")
+    public ResponseEntity<Collection<Faculty>> getFacultiesByDefiniteColor(@RequestParam String definiteColor) {
         return ResponseEntity.ok(houseService.getAllFaculties()
                 .stream()
                 .filter(faculty -> faculty.getColor().equals(definiteColor))

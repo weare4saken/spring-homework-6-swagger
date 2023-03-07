@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("student")
+@RequestMapping("/student")
 public class StudentController {
 
     private final StudentService studentService;
@@ -25,8 +25,8 @@ public class StudentController {
         return ResponseEntity.ok(createdStudent);
     }
 
-    @GetMapping("{studentId}")
-    public ResponseEntity<Student> getStudent(@PathVariable Long studentId) {
+    @GetMapping("/")
+    public ResponseEntity<Student> getStudent(@RequestParam Long studentId) {
         Student student = studentService.getStudentById(studentId);
         if (student == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -39,7 +39,7 @@ public class StudentController {
         return ResponseEntity.ok(studentService.getAllStudents());
     }
 
-    @PutMapping()
+    @PatchMapping
     public ResponseEntity<Student> updateStudent(@RequestBody Student student) {
         Student updatedStudent = studentService.updateStudent(student);
         if (updatedStudent == null) {
@@ -48,8 +48,8 @@ public class StudentController {
         return ResponseEntity.ok(updatedStudent);
     }
 
-    @DeleteMapping("{studentId}")
-    public ResponseEntity<Student> deleteStudent(@PathVariable Long studentId) {
+    @DeleteMapping
+    public ResponseEntity<Student> deleteStudent(@RequestParam Long studentId) {
         Student deletedStudent = studentService.deleteStudent(studentId);
         if (deletedStudent == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -57,8 +57,8 @@ public class StudentController {
         return ResponseEntity.ok(deletedStudent);
     }
 
-    @GetMapping("/age/{definiteAge}")
-    public ResponseEntity<Collection<Student>> getStudentsByDefiniteAge(@PathVariable int definiteAge) {
+    @GetMapping("/age")
+    public ResponseEntity<Collection<Student>> getStudentsByDefiniteAge(@RequestParam int definiteAge) {
         return ResponseEntity.ok(studentService.getAllStudents()
                 .stream()
                 .filter(student -> student.getAge() == definiteAge)
