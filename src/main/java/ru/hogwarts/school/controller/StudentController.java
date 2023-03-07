@@ -2,7 +2,6 @@ package ru.hogwarts.school.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
@@ -10,7 +9,7 @@ import ru.hogwarts.school.service.StudentService;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-@Controller
+@RestController
 @RequestMapping("student")
 public class StudentController {
 
@@ -30,7 +29,7 @@ public class StudentController {
     public ResponseEntity<Student> getStudent(@PathVariable Long studentId) {
         Student student = studentService.getStudentById(studentId);
         if (student == null) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.ok(student);
     }
@@ -53,12 +52,12 @@ public class StudentController {
     public ResponseEntity<Student> deleteStudent(@PathVariable Long studentId) {
         Student deletedStudent = studentService.deleteStudent(studentId);
         if (deletedStudent == null) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.ok(deletedStudent);
     }
 
-    @GetMapping("/age")
+    @GetMapping("/age/{definiteAge}")
     public ResponseEntity<Collection<Student>> getStudentsByDefiniteAge(@PathVariable int definiteAge) {
         return ResponseEntity.ok(studentService.getAllStudents()
                 .stream()

@@ -2,16 +2,14 @@ package ru.hogwarts.school.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
-import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.HouseService;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-@Controller
+@RestController
 @RequestMapping("faculty")
 public class HouseController {
 
@@ -31,7 +29,7 @@ public class HouseController {
     public ResponseEntity<Faculty> getFaculty(@PathVariable Long facultyId) {
         Faculty faculty = houseService.getFacultyById(facultyId);
         if (faculty == null) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.ok(faculty);
     }
@@ -54,12 +52,12 @@ public class HouseController {
     public ResponseEntity<Faculty> deleteFaculty(@PathVariable Long facultyId) {
         Faculty deletedFaculty = houseService.deleteFaculty(facultyId);
         if (deletedFaculty == null) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.ok(deletedFaculty);
     }
 
-    @GetMapping("/color")
+    @GetMapping("/color/{definiteColor}")
     public ResponseEntity<Collection<Faculty>> getFacultiesByDefiniteColor(@PathVariable String definiteColor) {
         return ResponseEntity.ok(houseService.getAllFaculties()
                 .stream()

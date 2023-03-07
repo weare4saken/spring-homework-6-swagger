@@ -11,9 +11,10 @@ import java.util.Map;
 public class StudentService {
 
     private final Map<Long, Student> students = new HashMap<>();
-    private Long generatedStudentId = 0L;
+    private Long generatedStudentId = 1L;
 
     public Student createStudent(Student student) {
+        student.setId(generatedStudentId);
         students.put(generatedStudentId, student);
         generatedStudentId++;
         return student;

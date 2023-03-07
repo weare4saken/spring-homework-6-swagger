@@ -11,16 +11,17 @@ import java.util.Map;
 public class HouseService {
 
     private final Map<Long, Faculty> faculties = new HashMap<>();
-    private Long generatedFacultyId = 0L;
+    private Long generatedFacultyId = 1L;
 
     public Faculty createFaculty(Faculty faculty) {
+        faculty.setId(generatedFacultyId);
         faculties.put(generatedFacultyId, faculty);
         generatedFacultyId++;
         return faculty;
     }
 
     public Faculty getFacultyById(Long facultyId) {
-        if (faculties.containsValue(facultyId)) {
+        if (faculties.containsKey(facultyId)) {
             return faculties.get(facultyId);
         }
         return null;
