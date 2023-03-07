@@ -25,18 +25,13 @@ public class HouseController {
         return ResponseEntity.ok(createdFaculty);
     }
 
-    @GetMapping("/")
-    public ResponseEntity<Faculty> getFaculty(@RequestParam Long facultyId) {
+    @GetMapping("{facultyId}")
+    public ResponseEntity<Faculty> getFaculty(@PathVariable Long facultyId) {
         Faculty faculty = houseService.getFacultyById(facultyId);
         if (faculty == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.ok(faculty);
-    }
-
-    @GetMapping
-    public ResponseEntity<Collection<Faculty>> getAllFaculties() {
-        return ResponseEntity.ok(houseService.getAllFaculties());
     }
 
     @PatchMapping
@@ -57,7 +52,7 @@ public class HouseController {
         return ResponseEntity.ok(deletedFaculty);
     }
 
-    @GetMapping("/color")
+    @GetMapping
     public ResponseEntity<Collection<Faculty>> getFacultiesByDefiniteColor(@RequestParam String definiteColor) {
         return ResponseEntity.ok(houseService.getAllFaculties()
                 .stream()

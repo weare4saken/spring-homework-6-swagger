@@ -25,18 +25,13 @@ public class StudentController {
         return ResponseEntity.ok(createdStudent);
     }
 
-    @GetMapping("/")
-    public ResponseEntity<Student> getStudent(@RequestParam Long studentId) {
+    @GetMapping("{studentId}")
+    public ResponseEntity<Student> getStudent(@PathVariable Long studentId) {
         Student student = studentService.getStudentById(studentId);
         if (student == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.ok(student);
-    }
-
-    @GetMapping
-    public ResponseEntity<Collection<Student>> getAllStudents() {
-        return ResponseEntity.ok(studentService.getAllStudents());
     }
 
     @PatchMapping
@@ -57,7 +52,7 @@ public class StudentController {
         return ResponseEntity.ok(deletedStudent);
     }
 
-    @GetMapping("/age")
+    @GetMapping
     public ResponseEntity<Collection<Student>> getStudentsByDefiniteAge(@RequestParam int definiteAge) {
         return ResponseEntity.ok(studentService.getAllStudents()
                 .stream()
