@@ -45,11 +45,8 @@ public class HouseController {
 
     @DeleteMapping
     public ResponseEntity<Faculty> deleteFaculty(@RequestParam Long facultyId) {
-        Faculty deletedFaculty = houseService.deleteFaculty(facultyId);
-        if (deletedFaculty == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-        return ResponseEntity.ok(deletedFaculty);
+        houseService.deleteFaculty(facultyId);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping

@@ -45,11 +45,8 @@ public class StudentController {
 
     @DeleteMapping
     public ResponseEntity<Student> deleteStudent(@RequestParam Long studentId) {
-        Student deletedStudent = studentService.deleteStudent(studentId);
-        if (deletedStudent == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-        return ResponseEntity.ok(deletedStudent);
+        studentService.deleteStudent(studentId);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping
