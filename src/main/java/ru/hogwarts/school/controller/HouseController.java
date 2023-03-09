@@ -42,8 +42,8 @@ public class HouseController {
         return ResponseEntity.ok(updatedFaculty);
     }
 
-    @DeleteMapping
-    public ResponseEntity<Faculty> deleteFaculty(@RequestParam Long facultyId) {
+    @DeleteMapping("{facultyId}")
+    public ResponseEntity<Faculty> deleteFaculty(@PathVariable Long facultyId) {
         houseService.deleteFaculty(facultyId);
         return ResponseEntity.ok().build();
     }
