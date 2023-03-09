@@ -37,5 +37,10 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
+
+    public Collection<Student> getAllStudentsByAge(int difiniteAge) {
+        return studentRepository.findAllByAge(difiniteAge);
+    }
+
 }
 

@@ -7,7 +7,6 @@ import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.service.HouseService;
 
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/faculty")
@@ -51,10 +50,7 @@ public class HouseController {
 
     @GetMapping
     public ResponseEntity<Collection<Faculty>> getFacultiesByDefiniteColor(@RequestParam String definiteColor) {
-        return ResponseEntity.ok(houseService.getAllFaculties()
-                .stream()
-                .filter(faculty -> faculty.getColor().equals(definiteColor))
-                .collect(Collectors.toList()));
+        return ResponseEntity.ok(houseService.getAllFacultiesByColor(definiteColor));
     }
 
 }
