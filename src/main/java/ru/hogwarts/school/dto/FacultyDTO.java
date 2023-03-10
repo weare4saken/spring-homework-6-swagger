@@ -36,9 +36,7 @@ public class FacultyDTO {
         faculty.setId(this.getId());
         faculty.setName(this.getName());
         faculty.setColor(this.getColor());
-//        faculty.setStudents(this.getStudents().stream()
-//                                                .map(StudentDTO::toStudent)
-//                                                .collect(Collectors.toList()));
+
         return faculty;
     }
 

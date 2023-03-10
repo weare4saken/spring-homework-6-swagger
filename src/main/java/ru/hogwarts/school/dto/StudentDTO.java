@@ -31,6 +31,4 @@ public class StudentDTO {
         return student;
     }
 
-
-
 }
