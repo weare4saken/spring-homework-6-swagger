@@ -2,9 +2,7 @@ package ru.hogwarts.school.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.BeanUtils;
 import ru.hogwarts.school.model.Faculty;
-import ru.hogwarts.school.model.Student;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,7 +34,6 @@ public class FacultyDTO {
         faculty.setId(this.getId());
         faculty.setName(this.getName());
         faculty.setColor(this.getColor());
-
         return faculty;
     }
 

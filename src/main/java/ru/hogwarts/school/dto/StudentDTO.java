@@ -27,7 +27,6 @@ public class StudentDTO {
         student.setId(this.getId());
         student.setName(this.getName());
         student.setAge(this.getAge());
-
         return student;
     }
 

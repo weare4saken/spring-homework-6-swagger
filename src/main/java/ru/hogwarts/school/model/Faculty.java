@@ -19,4 +19,5 @@ public class Faculty {
     private String color;
     @OneToMany(mappedBy = "faculty")
     private List<Student> students;
+
 }
