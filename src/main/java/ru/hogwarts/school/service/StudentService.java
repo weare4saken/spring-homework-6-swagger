@@ -1,5 +1,6 @@
 package ru.hogwarts.school.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.dto.FacultyDTO;
 import ru.hogwarts.school.dto.StudentDTO;
@@ -8,7 +9,9 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
 import ru.hogwarts.school.repository.StudentRepository;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,6 +25,11 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
+    @Autowired
+    public StudentService(StudentRepository studentRepository, FacultyRepository facultyRepository) {
+        this.studentRepository = studentRepository;
+        this.facultyRepository = facultyRepository;
+    }
 
     public StudentDTO createStudent(StudentDTO studentDTO) {
         Faculty faculty = facultyRepository.findById(studentDTO.getFacultyId()).get();
@@ -70,7 +78,16 @@ public class StudentService {
 
     public FacultyDTO getFacultyByStudentId(Long id) {
         Faculty faculty = facultyRepository.findById(getStudentById(id).getFacultyId()).get();
-        return FacultyDTO.fromFaculty(faculty);
+        List<Student> students = faculty.getStudents();
+        List<StudentDTO> studentsDTO = new ArrayList<>();
+        for(Student student : students) {
+            StudentDTO studentDTO = StudentDTO.fromStudent(student);
+            studentDTO.setFacultyId(id);
+            studentsDTO.add(studentDTO);
+        }
+        FacultyDTO facultyDTO = FacultyDTO.fromFaculty(faculty);
+        facultyDTO.setStudents(studentsDTO);
+        return facultyDTO;
     }
 
 }

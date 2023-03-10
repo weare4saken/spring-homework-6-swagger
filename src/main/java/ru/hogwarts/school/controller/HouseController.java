@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.dto.FacultyDTO;
+import ru.hogwarts.school.dto.StudentDTO;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.service.HouseService;
 
@@ -60,6 +61,11 @@ public class HouseController {
             return ResponseEntity.ok(houseService.getAllFacultyByName(name));
         }
         return ResponseEntity.ok(houseService.getAllFaculties());
+    }
+
+    @GetMapping("{facultyId}/students")
+    public ResponseEntity<Collection<StudentDTO>> getAllStudentsByFacultyId (@PathVariable Long facultyId) {
+        return ResponseEntity.ok(houseService.getAllStudentsByFacultyId(facultyId));
     }
 
 }

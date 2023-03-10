@@ -18,14 +18,16 @@ public class FacultyDTO {
     private String color;
     private List<StudentDTO> students;
 
+
     public static FacultyDTO fromFaculty(Faculty faculty) {
         FacultyDTO dto = new FacultyDTO();
         dto.setId(faculty.getId());
         dto.setName(faculty.getName());
         dto.setColor(faculty.getColor());
         dto.setStudents(faculty.getStudents().stream()
-                                                .map(dto::map)
+                                                .map(StudentDTO::fromStudent)
                                                 .collect(Collectors.toList()));
+
         return dto;
     }
 
@@ -34,16 +36,10 @@ public class FacultyDTO {
         faculty.setId(this.getId());
         faculty.setName(this.getName());
         faculty.setColor(this.getColor());
-        faculty.setStudents(this.getStudents().stream()
-                                                .map(StudentDTO::toStudent)
-                                                .collect(Collectors.toList()));
+//        faculty.setStudents(this.getStudents().stream()
+//                                                .map(StudentDTO::toStudent)
+//                                                .collect(Collectors.toList()));
         return faculty;
-    }
-
-    private StudentDTO map(Student student) {
-        StudentDTO studentDTO = new StudentDTO();
-        BeanUtils.copyProperties(student, studentDTO);
-        return studentDTO;
     }
 
 }
