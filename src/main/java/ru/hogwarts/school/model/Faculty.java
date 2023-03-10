@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -16,5 +17,6 @@ public class Faculty {
     private Long id;
     private String name;
     private String color;
-
+    @OneToMany(mappedBy = "faculty")
+    private List<Student> students;
 }

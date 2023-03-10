@@ -41,4 +41,10 @@ public class HouseService {
     public Collection<Faculty> getAllFacultiesByColor(String difiniteColor) {
         return facultyRepository.findAllByColor(difiniteColor);
     }
+
+    public Collection<Faculty> getAllFacultyByName (String name) {
+        return facultyRepository.findByNameIgnoreCase(name);
+    }
+
+
 }

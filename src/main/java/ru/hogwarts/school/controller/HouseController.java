@@ -49,8 +49,16 @@ public class HouseController {
     }
 
     @GetMapping
-    public ResponseEntity<Collection<Faculty>> getFacultiesByDefiniteColor(@RequestParam String definiteColor) {
-        return ResponseEntity.ok(houseService.getAllFacultiesByColor(definiteColor));
+    public ResponseEntity<Collection<Faculty>> getFaculties(
+            @RequestParam(required = false) String definiteColor,
+            @RequestParam(required = false) String name) {
+        if(definiteColor != null && !definiteColor.isBlank()) {
+            return ResponseEntity.ok(houseService.getAllFacultiesByColor(definiteColor));
+        }
+        if(name != null && !name.isBlank()) {
+            return ResponseEntity.ok(houseService.getAllFacultyByName(name));
+        }
+        return ResponseEntity.ok(houseService.getAllFaculties());
     }
 
 }
