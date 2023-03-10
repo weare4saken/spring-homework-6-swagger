@@ -14,7 +14,7 @@ public class FacultyDTO {
     private Long id;
     private String name;
     private String color;
-    private List<StudentDTO> students;
+//    private List<StudentDTO> students;
 
 
     public static FacultyDTO fromFaculty(Faculty faculty) {
@@ -22,9 +22,9 @@ public class FacultyDTO {
         dto.setId(faculty.getId());
         dto.setName(faculty.getName());
         dto.setColor(faculty.getColor());
-        dto.setStudents(faculty.getStudents().stream()
-                                                .map(StudentDTO::fromStudent)
-                                                .collect(Collectors.toList()));
+//        dto.setStudents(faculty.getStudents().stream()
+//                                                .map(StudentDTO::fromStudent)
+//                                                .collect(Collectors.toList()));
 
         return dto;
     }

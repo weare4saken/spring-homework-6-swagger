@@ -78,16 +78,16 @@ public class StudentService {
 
     public FacultyDTO getFacultyByStudentId(Long id) {
         Faculty faculty = facultyRepository.findById(getStudentById(id).getFacultyId()).get();
-        List<Student> students = faculty.getStudents();
-        List<StudentDTO> studentsDTO = new ArrayList<>();
-        for(Student student : students) {
-            StudentDTO studentDTO = StudentDTO.fromStudent(student);
-            studentDTO.setFacultyId(id);
-            studentsDTO.add(studentDTO);
-        }
-        FacultyDTO facultyDTO = FacultyDTO.fromFaculty(faculty);
-        facultyDTO.setStudents(studentsDTO);
-        return facultyDTO;
+//        List<Student> students = faculty.getStudents();
+//        List<StudentDTO> studentsDTO = new ArrayList<>();
+//        for(Student student : students) {
+//            StudentDTO studentDTO = StudentDTO.fromStudent(student);
+//            studentDTO.setFacultyId(id);
+//            studentsDTO.add(studentDTO);
+//        }
+//        FacultyDTO facultyDTO = FacultyDTO.fromFaculty(faculty);
+//        facultyDTO.setStudents(studentsDTO);
+        return FacultyDTO.fromFaculty(faculty);
     }
 
 }
