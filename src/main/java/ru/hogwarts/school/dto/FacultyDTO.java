@@ -22,9 +22,9 @@ public class FacultyDTO {
         dto.setId(faculty.getId());
         dto.setName(faculty.getName());
         dto.setColor(faculty.getColor());
-//        dto.setStudents(faculty.getStudents().stream()
-//                                                .map(StudentDTO::fromStudent)
-//                                                .collect(Collectors.toList()));
+        /*dto.setStudents(faculty.getStudents().stream()
+                                                .map(StudentDTO::fromStudent)
+                                                .collect(Collectors.toList()));*/
 
         return dto;
     }

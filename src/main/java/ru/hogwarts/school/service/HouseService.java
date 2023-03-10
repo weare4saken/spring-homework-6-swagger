@@ -33,21 +33,21 @@ public class HouseService {
     public FacultyDTO updateFaculty(FacultyDTO facultyDTO) {
         Faculty faculty = facultyDTO.toFaculty();
 
-//        List<StudentDTO> studentsDTO = facultyDTO.getStudents();
+       /* List<StudentDTO> studentsDTO = facultyDTO.getStudents();
 
-//        if (studentsDTO == null) {
-//            faculty.setStudents(new ArrayList<>());
-//        } else {
-//
-//            List<Student> students = new ArrayList<>();
-//            for (StudentDTO studentDTO : studentsDTO) {
-//                Student student = studentDTO.toStudent();
-//                student.setFaculty(faculty);
-//                students.add(student);
-//            }
-//
-//            faculty.setStudents(students);
-//        }
+        if (studentsDTO == null) {
+            faculty.setStudents(new ArrayList<>());
+        } else {
+
+            List<Student> students = new ArrayList<>();
+            for (StudentDTO studentDTO : studentsDTO) {
+                Student student = studentDTO.toStudent();
+                student.setFaculty(faculty);
+                students.add(student);
+            }
+
+            faculty.setStudents(students);
+        }*/
         Faculty updatedFaculty = facultyRepository.save(faculty);
         return FacultyDTO.fromFaculty(updatedFaculty);
     }
