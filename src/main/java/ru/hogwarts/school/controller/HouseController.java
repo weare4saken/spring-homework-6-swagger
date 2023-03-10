@@ -3,6 +3,7 @@ package ru.hogwarts.school.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.hogwarts.school.dto.FacultyDTO;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.service.HouseService;
 
@@ -19,23 +20,14 @@ public class HouseController {
     }
 
     @PostMapping
-    public ResponseEntity<Faculty> createFaculty(@RequestBody Faculty faculty) {
-        Faculty createdFaculty = houseService.createFaculty(faculty);
+    public ResponseEntity<FacultyDTO> createFaculty(@RequestBody FacultyDTO facultyDTO) {
+        FacultyDTO createdFaculty = houseService.createFaculty(facultyDTO);
         return ResponseEntity.ok(createdFaculty);
     }
 
-    @GetMapping("{facultyId}")
-    public ResponseEntity<Faculty> getFaculty(@PathVariable Long facultyId) {
-        Faculty faculty = houseService.getFacultyById(facultyId);
-        if (faculty == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-        return ResponseEntity.ok(faculty);
-    }
-
     @PatchMapping
-    public ResponseEntity<Faculty> updateFaculty(@RequestBody Faculty faculty) {
-        Faculty updatedFaculty = houseService.updateFaculty(faculty);
+    public ResponseEntity<FacultyDTO> updateFaculty(@RequestBody FacultyDTO facultyDTO) {
+        FacultyDTO updatedFaculty = houseService.updateFaculty(facultyDTO);
         if (updatedFaculty == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
@@ -48,8 +40,17 @@ public class HouseController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("{facultyId}")
+    public ResponseEntity<FacultyDTO> getFaculty(@PathVariable Long facultyId) {
+        FacultyDTO faculty = houseService.getFacultyById(facultyId);
+        if (faculty == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        return ResponseEntity.ok(faculty);
+    }
+
     @GetMapping
-    public ResponseEntity<Collection<Faculty>> getFaculties(
+    public ResponseEntity<Collection<FacultyDTO>> getFaculties(
             @RequestParam(required = false) String definiteColor,
             @RequestParam(required = false) String name) {
         if(definiteColor != null && !definiteColor.isBlank()) {

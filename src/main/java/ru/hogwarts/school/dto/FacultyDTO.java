@@ -2,9 +2,12 @@ package ru.hogwarts.school.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -20,7 +23,9 @@ public class FacultyDTO {
         dto.setId(faculty.getId());
         dto.setName(faculty.getName());
         dto.setColor(faculty.getColor());
-        dto.setStudents(faculty.getStudents());
+        dto.setStudents(faculty.getStudents().stream()
+                                                .map(dto::map)
+                                                .collect(Collectors.toList()));
         return dto;
     }
 
@@ -29,8 +34,16 @@ public class FacultyDTO {
         faculty.setId(this.getId());
         faculty.setName(this.getName());
         faculty.setColor(this.getColor());
-        faculty.setStudents(this.getStudents());
+        faculty.setStudents(this.getStudents().stream()
+                                                .map(StudentDTO::toStudent)
+                                                .collect(Collectors.toList()));
         return faculty;
+    }
+
+    private StudentDTO map(Student student) {
+        StudentDTO studentDTO = new StudentDTO();
+        BeanUtils.copyProperties(student, studentDTO);
+        return studentDTO;
     }
 
 }

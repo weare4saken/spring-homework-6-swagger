@@ -3,6 +3,7 @@ package ru.hogwarts.school.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.hogwarts.school.dto.StudentDTO;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
@@ -19,23 +20,14 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<Student> createStudent(@RequestBody Student student) {
-        Student createdStudent = studentService.createStudent(student);
+    public ResponseEntity<StudentDTO> createStudent(@RequestBody StudentDTO studentDTO) {
+        StudentDTO createdStudent = studentService.createStudent(studentDTO);
         return ResponseEntity.ok(createdStudent);
     }
 
-    @GetMapping("{studentId}")
-    public ResponseEntity<Student> getStudent(@PathVariable Long studentId) {
-        Student student = studentService.getStudentById(studentId);
-        if (student == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-        return ResponseEntity.ok(student);
-    }
-
     @PatchMapping
-    public ResponseEntity<Student> updateStudent(@RequestBody Student student) {
-        Student updatedStudent = studentService.updateStudent(student);
+    public ResponseEntity<StudentDTO> updateStudent(@RequestBody StudentDTO studentDTO) {
+        StudentDTO updatedStudent = studentService.updateStudent(studentDTO);
         if (updatedStudent == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
@@ -48,10 +40,19 @@ public class StudentController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("{studentId}")
+    public ResponseEntity<StudentDTO> getStudent(@PathVariable Long studentId) {
+        StudentDTO student = studentService.getStudentById(studentId);
+        if (student == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        return ResponseEntity.ok(student);
+    }
+
     @GetMapping
-    public ResponseEntity<Collection<Student>> getStudents(@RequestParam(required = false) Integer definiteAge,
-                                                           @RequestParam(required = false) Integer minAge,
-                                                           @RequestParam(required = false) Integer maxAge) {
+    public ResponseEntity<Collection<StudentDTO>> getStudents(@RequestParam(required = false) Integer definiteAge,
+                                                              @RequestParam(required = false) Integer minAge,
+                                                              @RequestParam(required = false) Integer maxAge) {
         if (definiteAge != null) {
             return ResponseEntity.ok(studentService.getAllStudentsByAge(definiteAge));
         }

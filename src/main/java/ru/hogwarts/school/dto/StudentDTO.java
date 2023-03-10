@@ -11,14 +11,14 @@ public class StudentDTO {
     private Long id;
     private String name;
     private Integer age;
-    private FacultyDTO faculty;
+    private Long facultyId;
 
     public static StudentDTO fromStudent(Student student) {
         StudentDTO dto = new StudentDTO();
         dto.setId(student.getId());
         dto.setName(student.getName());
         dto.setAge(student.getAge());
-        dto.setFaculty(FacultyDTO.fromFaculty(student.getFaculty()));
+        dto.setFacultyId(student.getFaculty().getId());
         return dto;
     }
 
@@ -27,8 +27,10 @@ public class StudentDTO {
         student.setId(this.getId());
         student.setName(this.getName());
         student.setAge(this.getAge());
-        student.setFaculty(this.getFaculty().toFaculty());
+//        student.setFaculty(this.getFacultyId());
         return student;
     }
+
+
 
 }
