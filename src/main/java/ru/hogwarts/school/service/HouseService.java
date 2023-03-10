@@ -2,10 +2,14 @@ package ru.hogwarts.school.service;
 
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.dto.FacultyDTO;
+import ru.hogwarts.school.dto.StudentDTO;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -50,13 +54,23 @@ public class HouseService {
         return facultyRepository.findAllByColor(difiniteColor)
                 .stream()
                 .map(FacultyDTO::fromFaculty)
-                .collect(Collectors.toList());;
+                .collect(Collectors.toList());
     }
 
     public Collection<FacultyDTO> getAllFacultyByName (String name) {
         return facultyRepository.findByNameIgnoreCase(name).stream()
                 .map(FacultyDTO::fromFaculty)
                 .collect(Collectors.toList());
+    }
+
+    public Collection<StudentDTO> getAllStudentsByFacultyId(Long id) {
+        List<Student> students = facultyRepository.findById(id).get().getStudents();
+        List<StudentDTO> studentsDTO = new ArrayList<>();
+        for(Student student : students) {
+            StudentDTO studentDTO = StudentDTO.fromStudent(student);
+            studentsDTO.add(studentDTO);
+        }
+        return studentsDTO;
     }
 
 }
