@@ -9,9 +9,7 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
 import ru.hogwarts.school.repository.StudentRepository;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -78,15 +76,6 @@ public class StudentService {
 
     public FacultyDTO getFacultyByStudentId(Long id) {
         Faculty faculty = facultyRepository.findById(getStudentById(id).getFacultyId()).get();
-       /* List<Student> students = faculty.getStudents();
-        List<StudentDTO> studentsDTO = new ArrayList<>();
-        for(Student student : students) {
-            StudentDTO studentDTO = StudentDTO.fromStudent(student);
-            studentDTO.setFacultyId(id);
-            studentsDTO.add(studentDTO);
-        }
-        FacultyDTO facultyDTO = FacultyDTO.fromFaculty(faculty);
-        facultyDTO.setStudents(studentsDTO);*/
         return FacultyDTO.fromFaculty(faculty);
     }
 
