@@ -29,7 +29,7 @@ public class AvatarController {
     @PostMapping(value = "/student/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> uploadAvatar(@PathVariable Long id,
                                                @RequestParam MultipartFile avatarDTO) throws IOException {
-        if(avatarService.getExtension(avatarDTO.getOriginalFilename()).equals("png")) {
+        if(!avatarService.getExtension(avatarDTO.getOriginalFilename()).equals("png")) {
             return ResponseEntity.badRequest().body("File isn't \".png\" format!");
         }
         avatarService.uploadAvatar(id, avatarDTO);
@@ -56,6 +56,7 @@ public class AvatarController {
         try(InputStream is = Files.newInputStream(path);
             OutputStream os = response.getOutputStream()
         ){
+            response.setStatus(200);
             response.setContentType(avatarDTO.getMediaType());
             response.setContentLength((int) avatarDTO.getFileSize());
             is.transferTo(os);

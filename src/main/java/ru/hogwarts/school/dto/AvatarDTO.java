@@ -22,7 +22,6 @@ public class AvatarDTO {
         dto.setFileSize(avatar.getFileSize());
         dto.setMediaType(avatar.getMediaType());
         dto.setData(avatar.getData());
-        dto.setStudentId(avatar.getStudent().getId());
         return dto;
     }
 
@@ -31,7 +30,7 @@ public class AvatarDTO {
         avatar.setId(this.getId());
         avatar.setFilePath(this.getFilePath());
         avatar.setFileSize(this.getFileSize());
-        avatar.setMediaType(this.mediaType);
+        avatar.setMediaType(this.getMediaType());
         avatar.setData(this.getData());
         return avatar;
     }
