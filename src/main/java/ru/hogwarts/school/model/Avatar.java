@@ -12,13 +12,13 @@ public class Avatar {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    String filePath;
-    long fileSize;
-    String mediaType;
-    byte[] data;
-    @OneToOne(mappedBy = "id")
-    Student student;
+    private Long id;
+    private String filePath;
+    private long fileSize;
+    private String mediaType;
+    private byte[] data;
+    @OneToOne
+    private Student student;
 
 
 }
