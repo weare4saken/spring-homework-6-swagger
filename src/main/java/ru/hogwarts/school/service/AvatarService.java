@@ -19,7 +19,7 @@ import static java.nio.file.StandardOpenOption.CREATE_NEW;
 @Transactional
 public class AvatarService {
 
-    @Value("./avatars")
+    @Value("${application.avatars.folder}")
     private String avatarDir;
     private final StudentService studentService;
     private final AvatarRepository avatarRepository;
