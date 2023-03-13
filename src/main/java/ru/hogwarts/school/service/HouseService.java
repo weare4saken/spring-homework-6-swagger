@@ -22,7 +22,6 @@ public class HouseService {
     }
 
 
-
     public FacultyDTO createFaculty(FacultyDTO facultyDTO) {
         Faculty faculty = facultyDTO.toFaculty();
         Faculty createdFaculty = facultyRepository.save(faculty);

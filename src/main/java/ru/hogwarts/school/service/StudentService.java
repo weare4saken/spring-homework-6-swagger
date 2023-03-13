@@ -29,6 +29,7 @@ public class StudentService {
         this.facultyRepository = facultyRepository;
     }
 
+
     public StudentDTO createStudent(StudentDTO studentDTO) {
         Faculty faculty = facultyRepository.findById(studentDTO.getFacultyId()).get();
         Student student = studentDTO.toStudent();
