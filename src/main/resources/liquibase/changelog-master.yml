@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - include:
+      file: liquibase/changeset/student-table.sql
+
+  - include:
+      file: liquibase/changeset/faculty-table.sql
+
+  - include:
+      file: liquibase/changeset/avatar-table.sql
