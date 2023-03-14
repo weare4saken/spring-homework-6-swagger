@@ -1,5 +1,7 @@
 package ru.hogwarts.school.controller;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -7,6 +9,7 @@ import ru.hogwarts.school.dto.FacultyDTO;
 import ru.hogwarts.school.dto.StudentDTO;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
+
 
 import java.util.Collection;
 
@@ -56,18 +59,14 @@ public class StudentController {
     public ResponseEntity<Collection<StudentDTO>> getStudents(@RequestParam(required = false) Integer definiteAge,
                                                               @RequestParam(required = false) Integer minAge,
                                                               @RequestParam(required = false) Integer maxAge,
-                                                              @RequestParam Integer pageNumber,
-                                                              @RequestParam Integer pageSize) {
+                                                              @PageableDefault(size=50) Pageable pageable) {
         if (definiteAge != null) {
             return ResponseEntity.ok(studentService.getAllStudentsByAge(definiteAge));
         }
         if (minAge != null && maxAge != null) {
             return ResponseEntity.ok(studentService.getAllStudentsByAgeBetween(minAge, maxAge));
         }
-        if (pageSize <= 0 || pageSize > 50) {
-            return ResponseEntity.ok(studentService.getAllStudents(pageNumber, 50));
-        }
-        return ResponseEntity.ok(studentService.getAllStudents(pageNumber, pageSize));
+        return ResponseEntity.ok(studentService.getAllStudents(pageable));
     }
 
     @GetMapping("{studentId}/faculty")

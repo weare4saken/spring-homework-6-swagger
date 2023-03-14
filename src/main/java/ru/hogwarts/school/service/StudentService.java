@@ -2,6 +2,7 @@ package ru.hogwarts.school.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.dto.FacultyDTO;
 import ru.hogwarts.school.dto.StudentDTO;
@@ -19,7 +20,6 @@ public class StudentService {
     private final StudentRepository studentRepository;
 
     private FacultyRepository facultyRepository;
-
 
 
     public StudentService(StudentRepository studentRepository) {
@@ -57,9 +57,8 @@ public class StudentService {
         return StudentDTO.fromStudent(studentRepository.findById(studentId).get());
     }
 
-    public Collection<StudentDTO> getAllStudents(Integer pageNumber, Integer pageSize) {
-        PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
-        return studentRepository.findAll(pageRequest).getContent()
+    public Collection<StudentDTO> getAllStudents(Pageable pageable) {
+        return studentRepository.findAll(pageable).getContent()
                 .stream()
                 .map(StudentDTO::fromStudent)
                 .collect(Collectors.toList());
