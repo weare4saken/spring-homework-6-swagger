@@ -1,6 +1,7 @@
 package ru.hogwarts.school.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.dto.FacultyDTO;
 import ru.hogwarts.school.dto.StudentDTO;
@@ -56,8 +57,9 @@ public class StudentService {
         return StudentDTO.fromStudent(studentRepository.findById(studentId).get());
     }
 
-    public Collection<StudentDTO> getAllStudents() {
-        return studentRepository.findAll()
+    public Collection<StudentDTO> getAllStudents(Integer pageNumber, Integer pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
+        return studentRepository.findAll(pageRequest).getContent()
                 .stream()
                 .map(StudentDTO::fromStudent)
                 .collect(Collectors.toList());
