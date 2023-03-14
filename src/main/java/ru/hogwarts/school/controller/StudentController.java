@@ -59,14 +59,18 @@ public class StudentController {
     public ResponseEntity<Collection<StudentDTO>> getStudents(@RequestParam(required = false) Integer definiteAge,
                                                               @RequestParam(required = false) Integer minAge,
                                                               @RequestParam(required = false) Integer maxAge,
-                                                              @PageableDefault(size=50) Pageable pageable) {
+                                                              @RequestParam Integer pageNumber,
+                                                              @RequestParam Integer pageSize) {
         if (definiteAge != null) {
             return ResponseEntity.ok(studentService.getAllStudentsByAge(definiteAge));
         }
         if (minAge != null && maxAge != null) {
             return ResponseEntity.ok(studentService.getAllStudentsByAgeBetween(minAge, maxAge));
         }
-        return ResponseEntity.ok(studentService.getAllStudents(pageable));
+        if (pageSize <= 0 || pageSize > 50) {
+            return ResponseEntity.ok(studentService.getAllStudents(pageNumber, 50));
+        }
+        return ResponseEntity.ok(studentService.getAllStudents(pageNumber, pageSize));
     }
 
     @GetMapping("{studentId}/faculty")

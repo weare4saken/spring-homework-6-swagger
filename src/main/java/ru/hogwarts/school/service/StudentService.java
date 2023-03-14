@@ -57,8 +57,9 @@ public class StudentService {
         return StudentDTO.fromStudent(studentRepository.findById(studentId).get());
     }
 
-    public Collection<StudentDTO> getAllStudents(Pageable pageable) {
-        return studentRepository.findAll(pageable).getContent()
+    public Collection<StudentDTO> getAllStudents(Integer pageNumber, Integer pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
+        return studentRepository.findAll(pageRequest).getContent()
                 .stream()
                 .map(StudentDTO::fromStudent)
                 .collect(Collectors.toList());
