@@ -19,6 +19,8 @@ public class StudentService {
 
     private FacultyRepository facultyRepository;
 
+
+
     public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
@@ -78,6 +80,21 @@ public class StudentService {
     public FacultyDTO getFacultyByStudentId(Long id) {
         Faculty faculty = facultyRepository.findById(getStudentById(id).getFacultyId()).get();
         return FacultyDTO.fromFaculty(faculty);
+    }
+
+    public Long getTotalStudentCount() {
+        return studentRepository.getTotalStudentCount();
+    }
+
+    public Long getAverageAge() {
+        return studentRepository.getAverageAge();
+    }
+
+    public Collection<StudentDTO> getFiveYoungestStudents() {
+        return studentRepository.getFiveYoungestStudents()
+                .stream()
+                .map(StudentDTO::fromStudent)
+                .collect(Collectors.toList());
     }
 
 }

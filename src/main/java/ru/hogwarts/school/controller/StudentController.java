@@ -14,11 +14,13 @@ import java.util.Collection;
 @RequestMapping("/student")
 public class StudentController {
 
+
     private final StudentService studentService;
 
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
+
 
     @PostMapping
     public ResponseEntity<StudentDTO> createStudent(@RequestBody StudentDTO studentDTO) {
@@ -66,6 +68,21 @@ public class StudentController {
     @GetMapping("{studentId}/faculty")
     public ResponseEntity<FacultyDTO> getFacultyByStudentId(@PathVariable Long studentId) {
         return ResponseEntity.ok(studentService.getFacultyByStudentId(studentId));
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<Long> getTotalStudentCount() {
+        return ResponseEntity.ok(studentService.getTotalStudentCount());
+    }
+
+    @GetMapping("/average")
+    public ResponseEntity<Long> getAverageAge() {
+        return ResponseEntity.ok(studentService.getAverageAge());
+    }
+
+    @GetMapping("/younger")
+    public ResponseEntity<Collection<StudentDTO>> getFiveYoungestStudents() {
+        return ResponseEntity.ok(studentService.getFiveYoungestStudents());
     }
 
 }

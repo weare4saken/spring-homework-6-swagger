@@ -17,6 +17,7 @@ public class HouseService {
 
     private final FacultyRepository facultyRepository;
 
+
     public HouseService(FacultyRepository facultyRepository) {
         this.facultyRepository = facultyRepository;
     }
